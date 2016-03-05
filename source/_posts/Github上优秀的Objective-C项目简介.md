@@ -115,6 +115,8 @@ facebook出品的paper，动画效果太好了，赶超apple的原生app一大�
 github的iOS客户端，目前开源代码是V1版本，V2版本在appstore上可以下载
 * <a href="https://github.com/ChatSecure/ChatSecure-iOS">ChatSecure</a>
 使用XMPP协议的IM开源软件，很强大，在appstore上可以下载
+* [FDFullscreenPopGesture](https://github.com/forkingdog/FDFullscreenPopGesture)
+一个丝滑的全屏滑动返回手势,相关博客文章点击[这里](http://blog.sunnyxx.com/2015/06/07/fullscreen-pop-gesture/)
 
 # Xcode插件
 

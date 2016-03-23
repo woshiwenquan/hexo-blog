@@ -4,7 +4,7 @@ date: 2016-03-05 17:25:33
 tags:
 ---
 
-经过多年的iOS开发，到现在一共上线了6款App到App Store。从iOS6到iOS9，每一次苹果系统的更新，App Store的上线流程都会有点相应的改变。对于上线App到App Store的这个流程现在已经是得心应手，现在利用周末这个闲暇的时间纪录一下完整的上传App到App Store的流程。
+经过一年的iOS开发，到现在一共上线了6款App到App Store。从iOS6到iOS9，每一次苹果系统的更新，App Store的上线流程都会有点相应的改变。对于上线App到App Store的这个流程现在已经是得心应手，现在利用周末这个闲暇的时间纪录一下完整的上传App到App Store的流程。
 
 ## 预先准备
 

@@ -117,6 +117,8 @@ github的iOS客户端，目前开源代码是V1版本，V2版本在appstore上�
 使用XMPP协议的IM开源软件，很强大，在appstore上可以下载
 * [FDFullscreenPopGesture](https://github.com/forkingdog/FDFullscreenPopGesture)
 一个丝滑的全屏滑动返回手势,相关博客文章点击[这里](http://blog.sunnyxx.com/2015/06/07/fullscreen-pop-gesture/)
+* [TKSubmitTransition](https://github.com/Jvaeyhcd/TKSubmitTransition)
+非常漂亮的一个登录转场动画
 
 # Xcode插件
 

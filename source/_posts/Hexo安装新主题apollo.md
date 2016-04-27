@@ -31,4 +31,4 @@ theme: apollo
 ```
 
 启动hexo后修改成功后的皮肤如图所示
-{% asset_img apollo.png hexo-theme-apollo %}
+{% asset_img apollo.png apollo主题 %}

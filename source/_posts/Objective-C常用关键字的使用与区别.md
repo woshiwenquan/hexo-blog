@@ -20,7 +20,7 @@ OC中常见的关键字有copy,assign,strong,retain,weak,readonly,nonatomic,atom
 
 <!-- more -->
 
-###### 含义
+## 含义
 * **copy** 创建一个索引计数为1的对象,释放掉原来的对象。复制内容（深复制），如果调用copy的是数组，则为指针复制（浅复制），仅仅复制子元素的指针。copy常常用来修饰NSString，NSMutableArray和Block。
 ``` Objective-C
 @property  (nonatomic,copy) NSString  *title;
@@ -72,7 +72,7 @@ delegate基本总是使用weak，以防止循环引用。特殊情况是，如�
 * **readwrite**
 此标记说明属性会被当成读写的，这也是默认属性。设置器和读取器都需要在@implementation中实现。如果使用@synthesize关键字，读取器和设置器都会被解析。
 
-###### 使用区别
+## 使用区别
 * **copy和retain**
 1. copy其实是建立了一个相同的对象，而retain不是；
 2. copy是内容拷贝，retain是指针拷贝；

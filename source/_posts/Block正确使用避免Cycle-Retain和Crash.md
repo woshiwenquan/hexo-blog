@@ -6,7 +6,7 @@ tags:
 
 >本文只介绍了MRC时的情况，有些细节不适用于ARC。比如MRC下__block不会增加引用计数，但ARC会，ARC下必须用__weak指明不增加引用计数；ARC下block内存分配机制也与MRC不一样，所以文中的一些例子在ARC下测试结果可能与文中描述的不一样
 
-<h6>Block简介</h6>
+## Block简介
 
 Block作为C语言的扩展，并不是高新技术，和其他语言的闭包或lambda表达式是一回事。需要注意的是由于Objective-C在iOS中不支持GC机制，使用Block必须自己管理内存，而内存管理正是使用Block坑最多的地方，错误的内存管理 要么导致return cycle内存泄漏要么内存被提前释放导致crash。 Block的使用很像函数指针，不过与函数最大的不同是：Block可以访问函数以外、词法作用域以内的外部变量的值。换句话说，Block不仅 实现函数的功能，还能携带函数的执行环境。
 
@@ -19,7 +19,7 @@ Block与函数另一个不同是，Block类似ObjC的对象，可以使用自动
 
 <!-- more -->
 
-<h6>Block基本语法</h6>
+## Block基本语法
 
 ```
 // 声明一个Block变量
@@ -59,7 +59,7 @@ typedef long (^BlkSum)(int, int);
 }
 
 ```
-<h6>Block在内存中的位置</h6>
+## Block在内存中的位置
 
 根据Block在内存中的位置分为三种类型NSGlobalBlock，NSStackBlock, NSMallocBlock。
 * NSGlobalBlock：类似函数，位于text段；
@@ -109,7 +109,7 @@ printf("%d\n",base);
 ```
 上方的代码输出将是214,211。Block中使用__block修饰的变量时，将取变量此刻运行时的值，而不是定义时的快照。这个例子中，执行sum(1,2)时，base将取base++之后的值，也就是201，再执行Blockbase+=10; base+a+b，运行结果是214。执行完Block时，base已经变成211了。
 
-<h6>Block的copy、retain、release操作</h6>
+## Block的copy、retain、release操作
 
 不同于NSObjec的copy、retain、release操作：
 * Block_copy与copy等效，Block_release与release等效；
@@ -119,7 +119,7 @@ printf("%d\n",base);
 * NSMallocBlock支持retain、release，虽然retainCount始终是1，但内存管理器中仍然会增加、减少计数。copy之后不会生成新的对象，只是增加了一次引用，类似retain；
 * 尽量不要对Block使用retain操作。
 
-<h6>Block对不同类型的变量的存取</h6>
+## Block对不同类型的变量的存取
 
 ** 基本类型 **
 * 局部自动变量，在Block中只读。Block定义时copy变量的值，在Block中作为常量使用，所以即使变量的值在Block外改变，也不影响他在Block中的值。
@@ -232,7 +232,7 @@ int main(int argc, char *argv[]) {
 ```
 * 非ObjC对象，如GCD队列dispatch_queue_t。Block copy时并不会自动增加他的引用计数，这点要非常小心。
 
-<h6>Block中使用的ObjC对象的行为</h6>
+## Block中使用的ObjC对象的行为
 
 ```
 @property (nonatomic, copy) void(^myBlock)(void);
@@ -244,7 +244,7 @@ self.myBlock = ^ {
 ```
 对象obj在Block被copy到堆上的时候自动retain了一次。因为Block不知道obj什么时候被释放，为了不在Block使用obj前被释放，Block retain了obj一次，在Block被释放的时候，obj被release一次。
 
-<h6>retain cycle</h6>
+## retain cycle
 
 retain cycle问题的根源在于Block和obj可能会互相强引用，互相retain对方，这样就导致了retain cycle，最后这个Block和obj就变成了孤岛，谁也释放不了谁。比如：
 ```
@@ -352,7 +352,7 @@ self.objA = objA;
 ```
 >注意：MRC中__block是不会引起retain；但在ARC中__block则会引起retain。ARC中应该使用__weak或__unsafe_unretained弱引用。__weak只能在iOS5以后使用。
 
-<h6>Block使用对象被提前释放</h6>
+## Block使用对象被提前释放
 看下面例子，有这种情况，如果不只是request持有了Block，另一个对象也持有了Block。
 ```
       +-----------+           +-----------+

@@ -122,6 +122,104 @@ github的iOS客户端，目前开源代码是V1版本，V2版本在appstore上�
 * [DZNEmptyDataSet](https://github.com/dzenbot/DZNEmptyDataSet)
 非常方便的对一些没有数据的UITableView或者UIScrollView加上提示图片和文字。
 
+* [iRate](https://github.com/nicklockwood/iRate)
+一个开源的评分控件，能够非常友好的设置提醒用户去评论我们的app
+
+* [iVersion](https://github.com/nicklockwood/iVersion)
+和iRate一样出自同一个人之手，，这个是提示用户更新版本。
+
+* [PureLayout](https://github.com/PureLayout/PureLayout)
+自动布局
+
+# 文本相关
+
+* [SlackTextViewController](https://github.com/slackhq/SlackTextViewController)
+你曾经用过Slack iOS应用吗？如果你在较大的软件公司工作，也许会用过。对那些没用过的人呢？—?Slack令人激动。用到Slack的应用也是这样，尤其是用作极佳、定制的文本输入控制时。这时你有了一个现成可用在应用中的代码。自适应文本区域？试一下。手势识别、自动填充、多媒体合并？试一下。快速drop-in解决方案？试一下。其他还想要什么？SlackTextViewController 可以替代 UITableViewController & UICollectionViewController。
+
+* [RTLabel](https://github.com/honcheng/RTLabel)
+用于显示html的Label
+
+* [Shimmer](https://github.com/facebook/Shimmer)
+滑动解锁效果的界面
+
+* [DDRichText](https://github.com/daiweilai/DDRichText)
+为图文混排提供了一个思路
+
+# 进度条
+
+* [NJKWebViewProgress](https://github.com/ninjinkun/NJKWebViewProgress)
+web界面加载进度条
+
+* [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
+MBProgressHUD 使用非常广泛，网上很多基于ta的封装
+
+* [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD)
+Navigation的扩展，强烈推荐
+
+* [Toast](https://github.com/scalessec/Toast)
+
+# 导航栏
+
+* [LTNavigationbar](https://github.com/ltebean/LTNavigationbar)
+上下滑动动态改变导航栏颜色
+
+* [JZNavigationExtension](https://github.com/JazysYu/JZNavigationExtension)
+
+# 键盘类
+
+* [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager)
+
+* [TPKeyboardAvoiding](https://github.com/michaeltyson/TPKeyboardAvoiding)
+这个我用得很多，界面上如果有输入框可以界面会跟着键盘动，而不被键盘挡住。
+
+# 基础工具类以及Category
+
+* [BFKit OC版本](https://github.com/FabrizioBrancati/BFKit)
+国外的一个大神写的很好用的分类，比较齐全
+
+* [DateTools](https://github.com/MatthewYork/DateTools)
+很强大的日期工具类
+
+* [iOS-Categories](https://github.com/shaojiankui/iOS-Categories)
+很是全面的一个扩展 iOS中的各种Objective-C Category, a collection of useful Objective-C Categories extending iOS Frameworks such as Foundation,UIKit,CoreData,QuartzCore,CoreLocation,MapKit Etc.
+
+* [Material-Controls-For-iOS](https://github.com/fpt-software/Material-Controls-For-iOS)
+大神模仿谷歌做的iOS原生特效控件
+
+* [BlocksKit](https://github.com/zwaldowski/BlocksKit)
+为基础类提供Block支持，很好用
+
+# 弹出框
+
+* [STPopup](https://github.com/kevin0571/STPopup)
+很方便的弹出框
+
+* [MMPopupView](https://github.com/adad184/MMPopupView)
+里脊串的弹出框
+
+* [NYAlertViewController](https://github.com/nealyoung/NYAlertViewController)
+非常强大的弹出框
+
+* [TYAlertController](https://github.com/12207480/TYAlertController)
+很好很强大的弹出框，多种样式满足你的需求
+
+* [JKPopMenuView](https://github.com/UncleJoke/JKPopMenuView)
+一个简单的弹出菜单
+
+# 其它
+
+* [SWTableViewCell](https://github.com/CEWendel/SWTableViewCell)
+自定义侧滑
+
+* [MGSwipeTableCell](https://github.com/MortimerGoro/MGSwipeTableCell)
+同上自定义侧滑
+
+* [FDFullscreenPopGesture](https://github.com/forkingdog/FDFullscreenPopGesture)
+全屏滑动返回上级页面
+
+* [PDTSimpleCalendar](https://github.com/jivesoftware/PDTSimpleCalendar)
+一款日历控件，可以看看
+
 # Xcode插件
 
 * <a href="https://github.com/kattrali/cocoapods-xcode-plugin">cocoapods-xcode-plugin</a>

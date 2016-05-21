@@ -24,9 +24,18 @@ tags:
 * [LTMorphingLabel](https://github.com/lexrus/LTMorphingLabel)
 有超赞特效效果的Label
 
+* [Instructions](https://github.com/ephread/Instructions)
+操作指引框架
+
+* [Onboard](https://github.com/mamaral/Onboard)
+启动导航界面，很方便的集成
+
+* [SnapKit](https://github.com/SnapKit/SnapKit)
+Swift布局框架 在代码中纯手工创建约束灰常痛苦，但幸运的是我们有了SnapKit，在board中用上它，你可以简单直观地编写约束了
+
 ## 工具类
 * [PermissionScope](https://github.com/nickoneill/PermissionScope)
-有用的库，通过在询问用户之前提示用户需要系统许可带来更好的用户体验。
+用这个库可以在询问用户前，就告知用户所需的系统权限，为用户带来更好的体验。接受度更高—>更多活跃用户->更高的留存率->数据更好->下载率更高
 
 * [Quick](https://github.com/Quick/Quick)
 Swift里的单元测试。
@@ -58,6 +67,9 @@ Swift版Lo-Dash(或underscore)函数式工具库
 * [AEXML](https://github.com/tadija/AEXML)
 简单又易于的XML解析类及示例
 
+* [AMScrollingNavbar](https://github.com/andreamazz/AMScrollingNavbar)
+swift语言编写 上下滑动时动态隐藏标题栏
+
 ## 存储类
 
 * [SQLite.swift](https://github.com/stephencelis/SQLite.swift)
@@ -68,7 +80,18 @@ swift版本简单、轻量，使用上最SQL的SQLite封装库
 * [Alamofire](https://github.com/Alamofire/Alamofire)
 AFNetworking网络基础库Swift语言版
 
+* [RxAlamofire](https://github.com/RxSwiftCommunity/RxAlamofire)
+对 Alamofire的封装，很是强大
+
+## 基础工具类以及Category
+
+* [BFKit Swift版本](https://github.com/FabrizioBrancati/BFKit-Swift)
+国外的一个大神写的很好用的分类，比较齐全
+
 ## 图片类
+
+* [AlamofireImage](https://github.com/Alamofire/AlamofireImage)
+swift版本的SDWebImage
 
 * [ImageScout](https://github.com/kaishin/ImageScout)
 最小网络代价获得图片大小及类型

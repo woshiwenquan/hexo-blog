@@ -10,7 +10,7 @@ categories: Swift学习笔记
 ## 概述
 
 一般来说，在学习一个新的东西前我们都需要先了解这个东西的定义。在Swift中的闭包是什么呢？
-> 闭包是自包含的函数代码块，可以在代码中被传递和使用。Swift中的闭包与C和Objective-C中的代码块(blocks)以及其它一些语言中的匿名函数比较相似。
+> 闭包是自包含的函数代码块，可以在代码中被传递和使用。Swift中的闭包与C和objc中的代码块(blocks)以及其它一些语言中的匿名函数比较相似。
 
 闭包可以捕获和存储其所在上下文中任意常量和变量的引用。这就是所谓的闭合并包裹着这些常量和变量，俗称闭包。Swift 会为您管理在捕获过程中涉及到的所有内存操作。
 
@@ -127,4 +127,134 @@ sortedNumbers = numbers.sort{$0 > $1}
 如果函数只需要闭包表达式一个参数，当使用尾随闭包时可以把`()`省略
 ``` Swift
 sortedNumbers = numbers.sort(){$0 > $1}
+```
+当闭包非常长以至于不能在一行进行书写，尾随闭包变得非常有用。举个例子来说，Swifte的`Array`类型有一个`map(_:)`方法，其获取一个闭包表达式作为唯一参数。该闭包函数会为数组中的额每一个元素调用一次，并返回该元素所映射的值。具体的映射方式和返回值类型由闭包来指定。当提供给数组的闭包用于数组每个元素后，`map(_:)`方法将返回一个新的数组，数组中包含了与原数组中的元素一一对应的映射后的值。
+``` Swift
+let digitNames = [
+    0:"Zero", 1:"One", 2:"Two", 3:"Three", 4:"Four",
+    5:"Five", 6:"Six", 7:"Seven", 8:"Eight", 9:"Nine"
+]
+
+numbers = [34, 65, 89]
+
+let strings = numbers.map {
+    (number) -> String in
+    
+    var number = number
+    var output = ""
+    
+    while number > 0 {
+        output = digitNames[number % 10]! + output
+        number /= 10
+    }
+    
+    return output
+}
+
+print(strings)
+```
+上面示例代码展示了如何在`map(_:)`方法中使用尾随闭包将`Int`类型的数组`[34, 65, 89]`转换为包含对应`String`类型值的数组`["ThreeFour", "SixFive", "EightNine"]`。
+`map(_:)`为数组中每一个元素调用了闭包表达式。您不需要指定闭包的输入参数`number`的类型，因为可以通过要映射的数组类型进行推断。
+在该例中，局部变量`number`的值由闭包中的`numbe`r参数获得,因此可以在闭包函数体内对其进行修改，(闭包或者函数的参数总是固定的),闭包表达式指定了返回类型为`String`，以表明存储映射值的新数组类型为`String`。
+
+闭包表达式在每次被调用的时候创建了一个叫做`output`的字符串并返回。其使用求余运算符（`number % 10`）计算最后一位数字并利用`digitNames`字典获取所映射的字符串。
+
+> 注：字典digitNames下标后跟着一个叹号（`!`），因为字典下标返回一个可选值（optional value），表明该键不存在时会查找失败。在上例中，由于可以确定`number % 10`总是digitNames字典的有效下标，因此叹号可以用于强制解包 (force-unwrap) 存储在下标的可选类型的返回值中的`String`类型的值。
+
+## 捕获值
+闭包可以在其被定义的上下文中捕获常量或者变量。即使定义这些常量或变量的作用域已经不在，闭包仍然可以在闭包函数体内引用和修改这些值。Swift中可捕获值的最简单的形势就是嵌套函数，也就是定义在其它函数内的函数。嵌套函数可以捕获其外部函数所有的参数以及常量和变量。
+
+举个例子：
+``` Swift
+func makeIncrementor(forIncrement amount: Int) -> () -> Int {
+    var runningTotal = 0
+    func incrementor() -> Int {
+        runningTotal += amount
+        return runningTotal
+    }
+    return incrementor
+}
+
+let incrementByOne = makeIncrementor(forIncrement: 1)
+incrementByOne()//返回1
+incrementByOne()//返回2
+
+let incrementByTen = makeIncrementor(forIncrement: 10)
+incrementByTen()//返回10
+incrementByOne()//返回3
+```
+上面例子中有一个叫`makeIncrementor`的函数，它包含了一个叫`incrementor`的嵌套函数。嵌套函数`incrementor`从上下文捕获了两个值`runningTotal`和`amount`，捕获值后`makeIncrementor`将`incrementor`作为闭包返回。每次调用`incrementor`时，它会以`amount`作为增量增加`runningTotal`的值。
+`makeIncrementor`函数返回类型为`() -> Int`，这意味着它返回的是一个函数，而不是一个简单类型的值。该函数在每次调用时不接受参数，只返回一个`Int`类型的值。
+`makeIncrementer(forIncrement:)`又一个`Int`类型的参数，其外部参数名为`forIncrement`，内部参数名为`amount`，该参数表示每次`incrementor`被调用时`runningTotal`将要增加的量。
+嵌套函数`incrementor`用来执行实际的增加操作，使`runningTotal`增加`amount`，并将其返回。
+如果我们单独看`incrementor()`这个函数，会发现不同寻常
+``` Swift
+func incrementor() -> Int {
+    runningTotal += amount
+    return runningTotal
+}
+```
+`incrementor()`并没有接受任何参数，但是在函数体内访问了`runningTotal`和`amount`，这是因为它从外围函数捕获了`runningTotal`和`amount`变量的引用。捕获引用保证了`runningTotal`和`amount`变量在调用完`makeIncrementor`或不会消失，并且保证在下一次执行`incrementer`函数时`runningTotal`依然存在。
+> 注：为了优化，如果一个值是不可变的，Swift可能会改为捕获并保存一份对值的拷贝。Swift也会负责被捕获变量的所有内存管理工作。
+
+``` Swift
+let incrementByOne = makeIncrementor(forIncrement: 1)
+incrementByOne()//返回1
+incrementByOne()//返回2
+
+let incrementByTen = makeIncrementor(forIncrement: 10)
+incrementByTen()//返回10
+incrementByOne()//返回3
+incrementByTen()//返回20
+```
+如果您创建了另一个`incrementor`，它会有属于它自己的一个全新、独立的`runningTotal`变量的引用：
+再次调用原来的`incrementByOne`会在原来的变量`runningTotal`上继续增加值，该变量和`incrementByTen`中捕获的变量没有任何联系。
+> 注：如果您将闭包赋值给一个类实例的属性，并且该闭包通过访问该实例或其成员而捕获了该实例，您将创建一个在闭包和该实例间的循环强引用。Swift 使用捕获列表来打破这种循环强引用。
+
+## 闭包是引用类型
+上面的例子中，`incrementByOne`和`incrementByTen`是常量，但是这些常量指向的闭包仍然可以增加其捕获的变量值。这是因为函数和闭包都是引用类型。
+无论你将函数或者闭包赋值给一个常量还是变量，实际上都是将常量或者变量的值设置为对应函数或闭包的引用。。上面的示例中，指向闭包的引用`incrementByTen`是一个常量，而非闭包内容本身。
+这也意味着如果您将闭包赋值给了两个不同的常量或变量，两个值都会指向同一个闭包：
+``` Swift
+let alsoIncrementByTen = incrementByTen
+alsoIncrementByTen()//返回30
+```
+
+## 非逃逸闭包
+当一个闭包作为参数传到一个函数中，但是这个闭包在函数返回之后才被执行，我们称该闭包从函数中逃逸。当你定义接受闭包作为参数的函数时，你可以在参数名之前标注`@noescape`，用来指明这个闭包时不允许“逃逸”出这个函数的。将闭包标注`@noescape`能使编译器知道这个闭包的生命周期（闭包只能在函数体中被执行，不能脱离函数体执行，所以编译器明确知道运行时的上下文），从而可以进行一些比较激进的优化。
+`Array`中提供的`sort(_:)`方法接受一个用来进行元素比较的闭包作为函数，这个参数被标注了`@noescape`，因为它确保自己在排序结束后就没用了。
+``` Swift
+func someFunctionWithNoescapeClosure(@noescape closure: () -> Void) {
+    closure()
+}
+```
+`someFunctionWithNoescapeClosure`定义了一个传入非逃逸闭包的函数。
+一种能使闭包“逃逸”出函数的方法是，将这个闭包保存在一个函数外部定义的变量中。比如，很多启动异步操作的函数接受一个闭包参数作为completion handler。这类函数会在异步操作开始之后立即返回，但是闭包直到异步操作结束后才会被调用。在这种情况下，闭包需要“逃逸”出函数，因为闭包需要在函数返回之后被调用。例如：
+``` Swift
+var completionHandlers:[() -> Void] = []
+func someFunctionWithEscapingClosure(completionHandler:()->Void) -> Void {
+    completionHandlers.append(completionHandler)
+}
+```
+`someFunctionWithEscapingClosure(_:)`函数接受一个闭包作为参数，该闭包被添加到一个函数外定义的数组中。如果你试图将这个参数标注为`@noescape`将会得到一个编译错误。
+将闭包标注为`@noescape`使你能在闭包中隐式地引用`self`。
+``` Swift
+class ExClass {
+    var x = 1
+    func doSomething() -> Void {
+        someFunctionWithEscapingClosure({self.x = 120})
+        someFunctionWithEscapingClosure({self.x = 10})
+        someFunctionWithNoescapeClosure({x = 20})
+    }
+}
+
+let instance = ExClass()
+instance.doSomething()
+print(instance.x)
+
+completionHandlers.first?()
+print(instance.x)
+
+completionHandlers.last?()
+print(instance.x)
 ```

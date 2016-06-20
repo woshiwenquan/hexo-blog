@@ -1,8 +1,8 @@
 ---
-title: Objective-C过滤NSString中的HTML标签
+title: objc过滤NSString中的HTML标签
 date: 2016-05-04 11:17:29
 tags:
-  - Objective-C
+  - objc
 ---
 
 开发过程中常常会遇到这样一个情况：对于后台编辑的一些文本都是使用富文本的形式进行编辑的，我们在使用接口区请求数据的时候，请求到的数据是带HTML标签的富文本形式，但是我们前台是使用UIlabel去显示的，这个时候就需要去掉NSString的HTML标签。
@@ -17,7 +17,7 @@ tags:
 <!-- more -->
 
 NSString+Jvaeyhcd.h
-```
+``` objc
 #import <Foundation/Foundation.h>
 
 @interface NSString (Jvaeyhcd)
@@ -28,7 +28,7 @@ NSString+Jvaeyhcd.h
 ```
 
 NSString+Jvaeyhcd.m
-```
+``` objc
 - (NSString *)removeHTML {
     
     NSScanner *theScanner;
@@ -58,7 +58,7 @@ NSString+Jvaeyhcd.m
 用NSString自带的Seprated自截断方法
 
 NSString+Jvaeyhcd.h
-```
+``` objc
 #import <Foundation/Foundation.h>
 
 @interface NSString (Jvaeyhcd)
@@ -69,7 +69,7 @@ NSString+Jvaeyhcd.h
 ```
 
 NSString+Jvaeyhcd.m
-```
+``` objc
 - (NSString *)removeHTML2 {
     NSArray *components = [self componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     NSMutableArray *componentsToKeep = [NSMutableArray array];

@@ -24,7 +24,7 @@ tags:
 
 下面是一个简单例子实现将AViewController中UItextFiled中的值传到BViewController中Label中。
 AViewController.m中的代码如下：
-``` Objective-C
+``` objc
 #import "AViewController.h"
 #import "BViewController.h"
 
@@ -74,7 +74,7 @@ AViewController.m中的代码如下：
 ```
 
 BViewController.h文件中，声明被赋值的属性
-``` Objective-C
+``` objc
 #import <UIKit/UIKit.h>
 
 @interface BViewController : UIViewController
@@ -84,7 +84,7 @@ BViewController.h文件中，声明被赋值的属性
 @end
 ```
 BViewController.m中显示AViewController传递过来的属性值
-```
+``` objc
 #import "BViewController.h"
 
 @interface BViewController ()

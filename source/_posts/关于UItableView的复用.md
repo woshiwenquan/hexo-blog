@@ -22,14 +22,14 @@ UITableView是我从开始接触iOS编程到现在最常用的一个控件，没
 UItableView的复用方式有如下四种方式实现
 
 方式一:
-```
+``` objc
 UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier];  
 if (!cell) {
 	cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier]; 
 }
 ```
 方式二:UItableViewCell是xib写的
-```
+``` objc
 XXXTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];  
 if (nil == cell) {  
     cell = [[[NSBundle mainBundle]loadNibNamed:@"XXXTableViewCell" owner:self options:nil]lastObject];  
@@ -38,7 +38,7 @@ if (nil == cell) {
 }
 ```
 方式三:在xib中identifier属性必须写上cellIdentifier ,对应代码中的cellIdentifier
-```
+``` objc
 XXTableViewCell *cell;  
 cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];  
 if (nil == cell) {  
@@ -47,7 +47,7 @@ if (nil == cell) {
 return cell;
 ```
 方式四：先register cell，然后复用
-```
+``` objc
 #pragma mark - 初始化控件
 
 - (UITableView *)tableView

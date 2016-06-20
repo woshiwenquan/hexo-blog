@@ -12,7 +12,7 @@ Hexo博客系统的流行原因，是因为他的个人性，而皮肤就是个�
 
 ## 安装
 github上的文档给出了详细的安装命令
-```
+``` bash
 hexo init #blogname#
 cd #blogname# 
 npm install
@@ -22,7 +22,7 @@ git clone https://github.com/pinggod/hexo-theme-apollo.git themes/apollo
 
 ## 启用
 安装成功后就可以开始启用主题，主题的启用需要修改_config.yml 的 theme 配置项为 apollo：
-```
+``` bash
 # Extensions 插件和皮肤
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/

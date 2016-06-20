@@ -1,10 +1,10 @@
 ---
-title: Github上优秀的Objective-C项目简介
+title: Github上优秀的objc项目简介
 date: 2016-02-20 17:15:47
 tags:
 ---
 
-主要对当前Github排名靠前的项目做一个简单的简介，方便自己快速了解 Objective-C的一些优秀的开源框架。
+主要对当前Github排名靠前的项目做一个简单的简介，方便自己快速了解 objc的一些优秀的开源框架。
 
 * <a href="https://github.com/AFNetworking/AFNetworking" target="AFNetworking">AFNetworking</a>
 作者是 NSHipster 的博主, iOS 开发界的大神级人物, 毕业于卡内基·梅隆大学, 开源了许多牛逼的项目, 这个便是其中之一, AFNetworking 采用 NSURLConnection + NSOperation, 主要方便与服务端 API 进行数据交换, 操作简单, 功能强大, 现在许多人都用它取代 ASIHTTPRequest
@@ -20,7 +20,7 @@ BeeFramework是一个iOS应用开发框架，由国内开发者郭虹宇创立�
 * <a href="https://github.com/RestKit/RestKit">RestKit</a>
 主要用于 iOS 上网络通信, 允许与 RESTful Web 服务交互, 常用于处理 API, 解析 JSON, 映射响应对象等操作, 简单易用, 方便你把所有精力都放在对数据的操作上
 * <a href="https://github.com/ReactiveCocoa/ReactiveCocoa">ReactiveCocoa</a>
-由 GitHub 工程师们开发的一个应用于 iOS 和 OS X 开发的函数响应式编程新框架, Matt 称其为 "An open source project that exemplifies this brave new era for Objective-C", 也有人说它是 Cocoa 的未来,GitHub自家的函数式响应式编程范式的Objective-C实现，名字听着很高大上，学习曲线确实也比较陡，但是绝对会改变你对iOS编程的认知
+由 GitHub 工程师们开发的一个应用于 iOS 和 OS X 开发的函数响应式编程新框架, Matt 称其为 "An open source project that exemplifies this brave new era for objc", 也有人说它是 Cocoa 的未来,GitHub自家的函数式响应式编程范式的objc实现，名字听着很高大上，学习曲线确实也比较陡，但是绝对会改变你对iOS编程的认知
 * <a href="https://github.com/facebookarchive/three20">three20</a>
 由 Facebook iOS 客户端衍生出的一款 iPhone 框架, 内置许多丰富的功能, 有丰富的界面, 对底层的操作便捷, 为开发者省下了很多时间, 但现在已经停止了更新, 一个 PR 把代码删得干干净净, 不要好奇去点开 Files changed, 我点开后该页面直接卡死, three20 当中的一位作者创建了 Nimbus, 算是 three20 的一个替代品
 * <a href="https://github.com/jdg/MBProgressHUD">MBProgressHUD</a>
@@ -181,7 +181,7 @@ Navigation的扩展，强烈推荐
 很强大的日期工具类
 
 * [iOS-Categories](https://github.com/shaojiankui/iOS-Categories)
-很是全面的一个扩展 iOS中的各种Objective-C Category, a collection of useful Objective-C Categories extending iOS Frameworks such as Foundation,UIKit,CoreData,QuartzCore,CoreLocation,MapKit Etc.
+很是全面的一个扩展 iOS中的各种objc Category, a collection of useful objc Categories extending iOS Frameworks such as Foundation,UIKit,CoreData,QuartzCore,CoreLocation,MapKit Etc.
 
 * [Material-Controls-For-iOS](https://github.com/fpt-software/Material-Controls-For-iOS)
 大神模仿谷歌做的iOS原生特效控件

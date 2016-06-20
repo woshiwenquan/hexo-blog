@@ -7,7 +7,7 @@ tags:
 ## 问题描述
 
 最新在使用FFmpeg的时候遇到了如下的报错信息，但是现在一直都还未找到解决办法。
-```
+``` bash
 Undefined symbols for architecture arm64:
   "_avcodec_close", referenced from:
       CH264Decoder::~CH264Decoder() in H264Decoder.o

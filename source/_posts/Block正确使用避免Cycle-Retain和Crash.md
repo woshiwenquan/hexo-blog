@@ -8,7 +8,7 @@ tags:
 
 ## Block简介
 
-Block作为C语言的扩展，并不是高新技术，和其他语言的闭包或lambda表达式是一回事。需要注意的是由于Objective-C在iOS中不支持GC机制，使用Block必须自己管理内存，而内存管理正是使用Block坑最多的地方，错误的内存管理 要么导致return cycle内存泄漏要么内存被提前释放导致crash。 Block的使用很像函数指针，不过与函数最大的不同是：Block可以访问函数以外、词法作用域以内的外部变量的值。换句话说，Block不仅 实现函数的功能，还能携带函数的执行环境。
+Block作为C语言的扩展，并不是高新技术，和其他语言的闭包或lambda表达式是一回事。需要注意的是由于objc在iOS中不支持GC机制，使用Block必须自己管理内存，而内存管理正是使用Block坑最多的地方，错误的内存管理 要么导致return cycle内存泄漏要么内存被提前释放导致crash。 Block的使用很像函数指针，不过与函数最大的不同是：Block可以访问函数以外、词法作用域以内的外部变量的值。换句话说，Block不仅 实现函数的功能，还能携带函数的执行环境。
 
 可以这样理解，Block其实包含两个部分内容
 
@@ -21,7 +21,7 @@ Block与函数另一个不同是，Block类似ObjC的对象，可以使用自动
 
 ## Block基本语法
 
-```
+``` objc
 // 声明一个Block变量
 long (^sum) (int, int) = nil;
 // sum是个Block变量，该Block类型有两个int型参数，返回类型是long。
@@ -35,7 +35,7 @@ sum = ^ long (int a, int b) {
 long s = sum(1, 2);
 ```
 定义一个实例函数，该函数返回Block：
-```
+``` objc
 - (long (^)(int, int)) sumBlock {
     int base = 100;
     return [[ ^ long (int a, int b) {
@@ -47,7 +47,7 @@ long s = sum(1, 2);
 [self sumBlock](1,2);
 ```
 是不是感觉很怪？为了看的舒服，我们把Block类型typedef一下
-```
+``` objc
 typedef long (^BlkSum)(int, int);
 
 - (BlkSum) sumBlock {
@@ -67,7 +67,7 @@ typedef long (^BlkSum)(int, int);
 * NSMallocBlock：位于堆内存。
 
 来看下面一段代码
-```
+``` objc
 BlkSum blk1 = ^ long (int a, int b) {
   return a + b;
 };
@@ -84,7 +84,7 @@ BlkSum blk3 = [[blk2 copy] autorelease];
 NSLog(@"blk3 = %@", blk3); // blk3 = <__NSMallocBlock__: 0x902fda0>
 ```
 为什么blk1类型是NSGlobalBlock，而blk2类型是NSStackBlock？blk1和blk2的区别在于，blk1没有使用Block以外的任何外部变量，Block不需要建立局部变量值的快照，这使blk1与函数没有任何区别，从blk1所在内存地址0x47d0猜测编译器把blk1放到了text代码段。blk2与blk1唯一不同是的使用了局部变量base，在定义（注意是定义，不是运行）blk2时，局部变量base当前值被copy到栈上，作为常量供Block使用。执行下面代码，结果是203，而不是204。
-```
+``` objc
 int base = 100;
 base += 100;
 BlkSum sum = ^ long (int a, int b) {
@@ -96,7 +96,7 @@ printf("%ld",sum(1,2));
 
 >在Block内变量base是只读的，如果想在Block内改变base的值，在定义base时要用 __block修饰：__block int base = 100;
 
-```
+``` objc
 __block int base = 100;
 base += 100;
 BlkSum sum = ^ long (int a, int b) {
@@ -123,7 +123,7 @@ printf("%d\n",base);
 
 ** 基本类型 **
 * 局部自动变量，在Block中只读。Block定义时copy变量的值，在Block中作为常量使用，所以即使变量的值在Block外改变，也不影响他在Block中的值。
-```
+``` objc
 int base = 100;
 BlkSum sum = ^ long (int a, int b) {
   // base++; 编译错误，只读
@@ -134,7 +134,7 @@ printf("%ld\n",sum(1,2)); // 这里输出是103，而不是3
 ```
 * static变量、全局变量。如果把上个例子的base改成全局的、或static。Block就可以对他进行读写了。因为全局变量或静态变量在内存中的地址是固定的，Block在读取该变量值的时候是直接从其所在内存读出，获取到的是最新值，而不是在定义时copy的常量。
 如下所示的一段代码输出结果是0 3 1，表明Block外部对base的更新会影响Block中的base的取值，同样Block对base的更新也会影响Block外部的base值。
-```
+``` objc
 static int base = 100;
 BlkSum sum = ^ long (int a, int b) {
   base++;
@@ -147,7 +147,7 @@ printf("%d\n", base);
 ```
 
 * Block变量，被__block修饰的变量称作Block变量。 基本类型的Block变量等效于全局变量、或静态变量。Block被另一个Block使用时，另一个Block被copy到堆上时，被使用的Block也会被copy。但作为参数的Block是不会发生copy的。
-```
+``` objc
 void foo() {
   int base = 100;
   BlkSum blk = ^ long (int a, int b) {
@@ -178,7 +178,7 @@ __globalObj和__staticObj在内存中的位置是确定的，所以Block copy时
 _instanceObj在Block copy时也没有直接retain _instanceObj对象本身，但会retain self。所以在Block中可以直接读写_instanceObj变量。
 localObj在Block copy时，系统自动retain对象，增加其引用计数。
 blockObj在Block copy时也不会retain。
-```
+``` objc
 @interface MyClass : NSObject {
     NSObject* _instanceObj;
 }
@@ -234,7 +234,7 @@ int main(int argc, char *argv[]) {
 
 ## Block中使用的ObjC对象的行为
 
-```
+``` objc
 @property (nonatomic, copy) void(^myBlock)(void);
 
 MyClass* obj = [[[MyClass alloc] init] autorelease];
@@ -247,13 +247,13 @@ self.myBlock = ^ {
 ## retain cycle
 
 retain cycle问题的根源在于Block和obj可能会互相强引用，互相retain对方，这样就导致了retain cycle，最后这个Block和obj就变成了孤岛，谁也释放不了谁。比如：
-```
+``` objc
 ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
 [request setCompletionBlock:^{
   NSString* string = [request responseString];
 }];
 ```
-```
+``` bash
        +-----------+           +-----------+
        | request   |           |   Block   |
   ---> |           | --------> |           |
@@ -262,13 +262,13 @@ ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
        +-----------+           +-----------+
 ```
 解决这个问题的办法是使用弱引用打断retain cycle：
-```
+``` objc
 __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
 [request setCompletionBlock:^{
   NSString* string = [request responseString];
 }];
 ```
-```
+``` bash
       +-----------+           +-----------+
       | request   |           |   Block   |
  ---->|           | --------> |           |
@@ -277,7 +277,7 @@ __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
       +-----------+           +-----------+
 ```
 request被持有者释放后。request 的retainCount变成0,request被dealloc，request释放持有的Block，导致Block的retainCount变成0，也被销毁。这样这两个对象内存都被回收。
-```
+``` bash
       +-----------+           +-----------+
       | request   |           |   Block   |
  --X->|           | ----X---> |           |
@@ -286,19 +286,19 @@ request被持有者释放后。request 的retainCount变成0,request被dealloc�
       +-----------+           +-----------+
 ```
 与上面情况类似的陷阱：
-```
+``` objc
 self.myBlock = ^ {
   [self doSomething];
 };
 ```
 这里self和myBlock循环引用，解决办法同上：
-```
+``` objc
 __block MyClass* weakSelf = self;
 self.myBlock = ^ {
   [weakSelf doSomething];
 };
 ```
-```
+``` objc
 @property (nonatomic, retain) NSString* someVar;
 
 self.myBlock = ^ {
@@ -306,7 +306,7 @@ self.myBlock = ^ {
 };
 ```
 这里在Block中虽然没直接使用self，但使用了成员变量。在Block中使用成员变量，retain的不是这个变量，而会retain self。解决办法也和上面一样。
-```
+``` objc
 @property (nonatomic, retain) NSString* someVar;
 
 __block MyClass* weakSelf = self;
@@ -315,21 +315,21 @@ self.myBlock = ^ {
 };
 ```
 或者
-```
+``` objc
 NSString* str = _someVer;
 self.myBlock = ^ {
   NSLog(@"%@", str);
 };
 ```
 retain cycle不只发生在两个对象之间，也可能发生在多个对象之间，这样问题更复杂，更难发现
-```
+``` objc
 ClassA* objA = [[[ClassA alloc] init] autorelease];
 objA.myBlock = ^{
     [self doSomething];
 };
 self.objA = objA;
 ```
-```
+``` bash
   +-----------+           +-----------+           +-----------+
   |   self    |           |   objA    |           |   Block   |
   |           | --------> |           | --------> |           |
@@ -341,7 +341,7 @@ self.objA = objA;
        +------------------------------------------------+
 ```
 解决办法同样是用__block打破循环引用
-```
+``` objc
 ClassA* objA = [[[ClassA alloc] init] autorelease];
 
 MyClass* weakSelf = self;
@@ -354,7 +354,7 @@ self.objA = objA;
 
 ## Block使用对象被提前释放
 看下面例子，有这种情况，如果不只是request持有了Block，另一个对象也持有了Block。
-```
+``` bash
       +-----------+           +-----------+
       | request   |           |   Block   |   objA
  ---->|           | --------> |           |<--------
@@ -363,7 +363,7 @@ self.objA = objA;
       +-----------+           +-----------+
 ```
 这时如果request 被持有者释放。
-```
+``` bash
       +-----------+           +-----------+
       | request   |           |   Block   |   objA
  --X->|           | --------> |           |<--------
@@ -374,14 +374,14 @@ self.objA = objA;
 这时request已被完全释放，但Block仍被objA持有，没有释放，如果这时触发了Block，在Block中将访问已经销毁的request，这将导致程序crash。为了避免这种情况，开发者必须要注意对象和Block的生命周期。
 
 另一个常见错误使用是，开发者担心retain cycle错误的使用__block。比如
-```
+``` objc
 __block kkProducView* weakSelf = self;
 dispatch_async(dispatch_get_main_queue(), ^{
   weakSelf.xx = xx;
 });
 ```
 将Block作为参数传给dispatch_async时，系统会将Block拷贝到堆上，如果Block中使用了实例变量，还将retain self，因为dispatch_async并不知道self会在什么时候被释放，为了确保系统调度执行Block中的任务时self没有被意外释放掉，dispatch_async必须自己retain一次self，任务完成后再release self。但这里使用__block，使dispatch_async没有增加self的引用计数，这使得在系统在调度执行Block之前，self可能已被销毁，但系统并不知道这个情况，导致Block被调度执行时self已经被释放导致crash。
-```
+``` objc
 // MyClass.m
 - (void) test {
   __block MyClass* weakSelf = self;

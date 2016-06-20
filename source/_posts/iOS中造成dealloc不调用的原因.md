@@ -7,7 +7,7 @@ tags:
 ## 问题描述
 
 最近在一个项目中用到了地图，发现在地图页面和上一个页面间反复切换回出现内存爆增的情况，就像吃了炫迈一样根本停不下来（直到app内存爆表，app闪退收场）。造成这一结果的根本原因是地图的mapView没有释放，导致每次打开地图界面的时候内存中都重新加载了一个地图mapView。于是在网上搜索了一番找到了解决办法，只需要在地图的ViewController中dealloc方法中释放掉mapView就行了。具体代码如下:
-```
+``` objc
 - (void)dealloc {
     [_mapView release];
     [super dealloc];
@@ -35,7 +35,7 @@ tags:
 1. <b>ViewController中存在NSTimer</b>
 
     如果你的ViewController中有NSTimer，那么你就要注意了，因为当你调用
-```
+``` objc
 [NSTimer scheduledTimerWithTimeInterval:1.0 
                                  target:self 
                                selector:@selector(updateTime:) 
@@ -53,7 +53,7 @@ tags:
     这个就是我我上面不进入dealloc的真正原因，Block体内使用实例变量也会造成循环引用，使得拥有这个实例的对象不能释放。
     例如你这个类叫OneViewController,有个属性是NSString *name; 如果你在block体中使用了self.name，那样子的话这个类就没法释放。
     要解决这个问题，MRC下只需
-```
+``` objc
 __block Viewcontroller *weakSelf = self;
 ```
     ARC下将__block 换为 __weak

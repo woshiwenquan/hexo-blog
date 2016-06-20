@@ -16,7 +16,7 @@ tags:
 
 具体相关代码如下：
 
-``` Objective-c
+``` objc
 #import "RESideMenu.h"
 @interface RootViewController : RESideMenu <RESideMenuDelegate>
 @end
@@ -24,7 +24,7 @@ tags:
 
 然后在RootViewController.m文件中设置好RESideMenu
 
-``` Objective-c
+``` objc
 #import "RootViewController.h"
 @interface RootViewController ()
 @end
@@ -77,7 +77,7 @@ tags:
 
 通过观察RESideMenu的源码发现，RESideMenu类中有一个BOOL属性panGestureEnabled, 可以将其视为侧滑效果的开关。以RESideMenu的panGestureEnabled属性为突破口，采用通知的方式来解决这个问题。
 在RootViewController.m文件中加入如下代码：
-``` Objective-c
+``` objc
 - (void)viewDidLoad {
   [super viewDidLoad];
 
@@ -100,14 +100,14 @@ tags:
 }
 ```
 在其他页面需要禁止侧滑的时候调用如下代码,发送通知
-``` Objective-c
+``` objc
 // 关闭侧滑效果
 [[NSNotificationCenter defaultCenter] postNotificationName:@"disableRESideMenu"
                                                             object:self
                                                           userInfo:nil];
 ```
 相反在需要侧滑的地方调用
-```
+``` objc
 // 开启侧滑效果
 [[NSNotificationCenter defaultCenter] postNotificationName:@"enableRESideMenu"
                                                     object:self

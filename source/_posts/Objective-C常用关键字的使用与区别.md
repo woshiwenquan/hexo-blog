@@ -1,12 +1,12 @@
 ---
-title: Objective-C常用关键字的使用与区别
+title: objc常用关键字的使用与区别
 date: 2016-03-23 10:17:12
 tags:
-  - Objective-C
+  - objc
 ---
 
-虽然接触iOS已经很久了，但是对于Objective-C中常见的关键字还经常处于傻傻分不清楚的状态。遇到最多的情况就是在申明一个属性的时候，比如：
-```
+虽然接触iOS已经很久了，但是对于objc中常见的关键字还经常处于傻傻分不清楚的状态。遇到最多的情况就是在申明一个属性的时候，比如：
+``` objc
 @propperty (?,?) ?*!;
 ...............
 ............
@@ -23,13 +23,13 @@ OC中常见的关键字有copy,assign,strong,retain,weak,readonly,nonatomic,atom
 
 ## 含义
 * **copy** 创建一个索引计数为1的对象,释放掉原来的对象。复制内容（深复制），如果调用copy的是数组，则为指针复制（浅复制），仅仅复制子元素的指针。copy常常用来修饰NSString，NSMutableArray和Block。
-``` Objective-C
+``` objc
 @property  (nonatomic,copy) NSString  *title;
 @property (nonatomic, copy) NSMutableArray *myArray;
 @property (nonatomic, copy) void(^myBlock)();
 ```
 * **assign** 简单的赋值，不会更改索引计数，主要是对基本数据类型使用。eg：（NSInteger，CGFloat和C语言的int,float, double,char等）
-```
+``` objc
 @property (nonatomic, assign) int n;
 @property (nonatomic, assign) BOOL isOK;
 @property (nonatomic, assign) CGFloat width;
@@ -37,7 +37,7 @@ OC中常见的关键字有copy,assign,strong,retain,weak,readonly,nonatomic,atom
 ```
 * **retain**
 释放旧的对象，将旧对象的值赋予输入对象并将输入对象的索引计数＋1，主要应用与NSObject与其子类中。 retain是指针复制（浅复制），引用计数加1，而不会导致内容被复制。
-```
+``` objc
 @property  (nonatomic, retain) UIColor *myColor;
 
 - (void)setName:(NSString *)newName {
@@ -50,7 +50,7 @@ OC中常见的关键字有copy,assign,strong,retain,weak,readonly,nonatomic,atom
 
 * **strong**
 相当于retain，strong在ARC环境下为默认属性类型。
-```
+``` objc
 @property (nonatomic,readwrite,strong) NSString *title;
 @property (strong, nonatomic) UIViewController *viewController;
 @property (nonatomic,  strong) id childObject;
@@ -60,7 +60,7 @@ OC中常见的关键字有copy,assign,strong,retain,weak,readonly,nonatomic,atom
 取代之前的assign，对象销毁之后会自动置为nil，防止野指针。
 assign不能自动置为nil，需要手动置为nil。
 delegate基本总是使用weak，以防止循环引用。特殊情况是，如果希望在dealloc中调用delegate的某些方法进行释放，此时如果使用weak将引起异常，因为此时已经是nil了，那么采用assign更为合适。
-```
+``` objc
 @property  (weak, nonatomic) IBOutlet UIButton *myButton;//处于最顶层的IBOutlet应该为strong
 @property (nonatomic, weak) id parentObject;
 @property(nonatomic, readwrite, weak) id  <MyDelegate> delegate;

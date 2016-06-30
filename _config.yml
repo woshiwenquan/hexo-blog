@@ -75,10 +75,10 @@ baidu_analytics: 29df66b98641fa1eb4edb792fef116c9
 
 # Deployment 部署配置
 ## Docs: https://hexo.io/docs/deployment.html
-#deploy: 
-#  type: git 
+#deploy:
+#  type: git
 #  repo: https://github.com/Jvaeyhcd/jvaeyhcd.github.io.git
-deploy: 
-  type: git 
+deploy:
+  type: git
   repo: https://git.coding.net/chedahuang/chedahuang.git
   branch: coding-pages

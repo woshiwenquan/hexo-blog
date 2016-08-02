@@ -69,6 +69,7 @@ auto_excerpt:
 ## Themes: https://hexo.io/themes/
 # theme: landscape
 theme: next
+# theme: fexo
 
 # Baidu Analytics ID
 baidu_analytics: 29df66b98641fa1eb4edb792fef116c9
